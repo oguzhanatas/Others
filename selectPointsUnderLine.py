@@ -40,4 +40,3 @@ plt.show()
 #saving data in the lines
 new_data=pd.DataFrame({'x':x_in,'y':y_in})
 new_data.to_csv('./data_output/'+'inLinesData.csv',index=None)
-
