@@ -34,7 +34,9 @@ plt.plot(line,funct(line)+0.1,'g--',lw=1)
 plt.xlabel('x')
 plt.ylabel('y')
 plt.legend(loc='upper left',prop={'size':8})
+plt.savefig('./fig_output/'+'inLinesData.png')
 plt.show()
+
 
 
 #saving data in the lines
