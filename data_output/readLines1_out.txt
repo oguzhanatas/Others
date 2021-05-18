@@ -1,0 +1,6 @@
+   1    1   phabs      nH         10^22    0.160000     frozen
+
+   2    2   vphabs     nH         10^22    2.00000E-02  frozen
+
+  20    3   vpshock    kT         keV      0.556747     +/-  0.120060     
+

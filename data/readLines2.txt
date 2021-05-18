@@ -1,0 +1,68 @@
+reg6
+========================================================================
+Model phabs<1>*vphabs<2>*vpshock<3> Source No.: 1   Active/On
+Model Model Component  Parameter  Unit     Value
+ par  comp
+   1    1   phabs      nH         10^22    0.160000     frozen
+   2    2   vphabs     nH         10^22    2.00000E-02  frozen
+   3    2   vphabs     He                  0.890000     frozen
+   4    2   vphabs     C                   0.303000     frozen
+   5    2   vphabs     N                   0.123000     frozen
+   6    2   vphabs     O                   0.130000     frozen
+   7    2   vphabs     Ne                  0.200000     frozen
+   8    2   vphabs     Na                  0.300000     frozen
+   9    2   vphabs     Mg                  0.200000     frozen
+  10    2   vphabs     Al                  0.300000     frozen
+  11    2   vphabs     Si                  0.280000     frozen
+  12    2   vphabs     S                   0.310000     frozen
+  13    2   vphabs     Cl                  0.310000     frozen
+  14    2   vphabs     Ar                  0.537000     frozen
+  15    2   vphabs     Ca                  0.339000     frozen
+  16    2   vphabs     Cr                  0.610000     frozen
+  17    2   vphabs     Fe                  0.150000     frozen
+  18    2   vphabs     Co                  0.300000     frozen
+  19    2   vphabs     Ni                  0.618000     frozen
+  20    3   vpshock    kT         keV      0.856747     +/-  0.1333333    
+  21    3   vpshock    H                   1.00000      frozen
+  22    3   vpshock    He                  0.890000     frozen
+  23    3   vpshock    C                   0.303000     frozen
+  24    3   vpshock    N                   0.123000     frozen
+  25    3   vpshock    O                   0.170174     +/-  3.47851E-02  
+  26    3   vpshock    Ne                  0.263488     +/-  6.89799E-02  
+  27    3   vpshock    Mg                  8.53455E-02  +/-  0.103375     
+  28    3   vpshock    Si                  0.280000     frozen
+  29    3   vpshock    S                   0.310000     frozen
+  30    3   vpshock    Ar                  0.537000     frozen
+  31    3   vpshock    Ca                  0.339000     frozen
+  32    3   vpshock    Fe                  0.146456     +/-  6.45942E-02  
+  33    3   vpshock    Ni                  0.618000     frozen
+  34    3   vpshock    Tau_l      s/cm^3   0.0          frozen
+  35    3   vpshock    Tau_u      s/cm^3   7.49828E+10  +/-  4.67149E+10  
+  36    3   vpshock    Redshift            8.75000E-04  frozen
+  37    3   vpshock    norm                8.89718E-05  +/-  3.51816E-05  
+________________________________________________________________________
+
+
+Fit statistic  : Chi-Squared                   33.92     using 36 bins.
+
+Test statistic : Chi-Squared                   33.92     using 36 bins.
+ Null hypothesis probability of 2.42e-01 with 29 degrees of freedom
+XSPEC12>err 20,25-27,32,35,37
+ Parameter   Confidence Range (2.706)
+    20     0.380682     0.853996    (-0.176065,0.29725)
+    25     0.125702     0.243148    (-0.0444724,0.0729738)
+    26     0.170192     0.401113    (-0.0932961,0.137624)
+***Warning: Parameter pegged at hard limit: 0
+    27            0     0.306905    (-0.0853455,0.22156)
+
+***Warning: Number of trials exceeded before convergence.
+Current trial values 0.0671022, 0.0670898
+and delta statistic 2.68329, 2.98547
+
+Continue error search in this direction? 
+    32    0.0670987     0.294204    (-0.0793574,0.147748)
+    35  2.81741e+10  3.35166e+11    (-4.68087e+10,2.60183e+11)
+    37  4.72099e-05  0.000199222    (-4.17878e-05,0.000110225)
+XSPEC12>plot ldat del
+XSPEC12>pwd
+/home/selcuk/Desktop/775/repro
