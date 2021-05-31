@@ -1,3 +1,5 @@
+'this code plot 3D figure with count density profile'
+'you can change the all functions what you need.'
 'https://matplotlib.org/1.3.1/mpl_toolkits/mplot3d/tutorial.html#toolkit-mplot3d-tutorial'
 from mpl_toolkits.mplot3d import Axes3D
 from matplotlib import cm
@@ -9,27 +11,38 @@ x=np.abs(np.random.standard_normal(10**6)*100)
 y=np.abs(np.random.standard_normal(10**6)*50)
 z=np.random.uniform(low=0.,high=100,size=10**6)
 
-def denssityColor(x,y):
+def denssityColor(x,y,lognorm=True):
     with np.errstate(divide='ignore'):
         xe,ye=np.linspace(min(x),max(x),100),np.linspace(min(y),max(y),100)
         h,xe,ye=np.histogram2d(x,y,(xe,ye))
         xidx=np.clip(np.digitize(x,xe),0,h.shape[0]-1)
         yidx=np.clip(np.digitize(y,ye),0,h.shape[1]-1)
         c=h[xidx,yidx]
-        norm=matplotlib.colors.LogNorm(vmin=10**0,vmax=10**3)
-        #norm=matplotlib.colors.Normalize(vmin=0,vmax=100)
+        if lognorm==True:
+            vmin,vmax=10**0,10**2
+            norm=matplotlib.colors.LogNorm(vmin=vmin,vmax=vmax)
+        else:
+            vmin,vmax=0,100
+            norm=matplotlib.colors.Normalize(vmin=vmin,vmax=vmax)
         cmap=plt.cm.get_cmap('RdYlBu_r')
-        #sc=plt.scatter(x,y,c=c,norm=matplotlib.colors.LogNorm(vmin=10**0,vmax=10**4),cmap=plt.cm.get_cmap('RdYlBu_r'),ec=None,alpha=0.6,s=1)
         return c,norm,cmap
 
 fig = plt.figure()
 ax = fig.gca(projection='3d')
-c,norm,cmap=denssityColor(x[(z>0)&(z<10)],y[(z>0)&(z<10)])
-ax.scatter(x[(z>0)&(z<10)],y[(z>0)&(z<10)],[5]*len(y[(z>0)&(z<10)]),c=c,norm=norm,cmap=cmap,s=1)
-c1,norm1,cmap1=denssityColor(x[(z>40)&(z<50)],y[(z>40)&(z<50)])
-ax.scatter(x[(z>40)&(z<50)],y[(z>40)&(z<50)],[45]*len(y[(z>40)&(z<50)]),c=c1,norm=norm1,cmap=cmap1,s=1)
-#ax.plot_trisurf(x[(z>5)&(z<10)], y[(z>5)&(z<10)], z[(z>5)&(z<10)], cmap=cm.jet, linewidth=0.2)
-#ax.plot_trisurf(x[(z>50)&(z<60)], y[(z>50)&(z<60)], z[(z>50)&(z<60)], cmap=cm.jet, linewidth=0.2)
+
+#1st layer
+mask=(z>0)&(z<10)
+c,norm,cmap=denssityColor(x[mask],y[mask],lognorm=False)
+ax.scatter(x[mask],y[mask],[np.mean(z[mask])]*len(x[mask]),c=c,norm=norm,cmap=cmap,s=1)
+#2nd layer
+mask2=(z>20)&(z<30)
+c2,norm2,cmap2=denssityColor(x[mask2],y[mask2])
+ax.scatter(x[mask2],y[mask2],[np.mean(z[mask2])]*len(x[mask2]),c=c2,norm=norm2,cmap=cmap2,s=1)
+#3rd layer
+mask3=(z>50)&(z<60)
+c3,norm3,cmap3=denssityColor(x[mask3],y[mask3])
+ax.scatter(x[mask3],y[mask3],[np.mean(z[mask3])]*len(x[mask3]),c=c3,norm=norm3,cmap=cmap3,s=1)
+
 ax.set_xlabel('x')
 ax.set_ylabel('y')
 ax.set_zlabel('z')
