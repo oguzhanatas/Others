@@ -16,6 +16,7 @@ Please feel free to use and modify this, but keep the above information. Thanks!
 from numpy import sin, cos
 import numpy as np
 import matplotlib.pyplot as plt
+from numpy.lib.function_base import select
 import scipy.integrate as integrate
 import matplotlib.animation as animation
 
@@ -105,15 +106,17 @@ class DoublePendulum:
 # set up initial state and global variables
 pendulum = DoublePendulum([180., 0.0, -20., 0.0])
 dt = 1./30 # 30 fps
-
+#print(pendulum.params)
 #------------------------------------------------------------
 # set up figure and animation
 fig = plt.figure()
+
+axlim=pendulum.params[0]+pendulum.params[1]
 ax = fig.add_subplot(111, aspect='equal', autoscale_on=False,
-                     xlim=(-2, 2), ylim=(-2, 2))
+                     xlim=(-axlim, axlim), ylim=(-axlim, axlim))
 ax.grid()
 
-line, = ax.plot([], [], 'o-', lw=2)
+line, = ax.plot([], [], 'ro-', lw=2)
 time_text = ax.text(0.02, 0.95, '', transform=ax.transAxes)
 energy_text = ax.text(0.02, 0.90, '', transform=ax.transAxes)
 
