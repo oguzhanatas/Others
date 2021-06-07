@@ -39,12 +39,16 @@ class ParticleBox:
         self.time_elapsed = 0
         self.bounds = bounds
         self.G = G
+        print(self.state)
         
     def energy(self):
         """step once by dt seconds"""
+        g=self.G
         m1=self.M
-        v1=0.5
-        return 0.5*m1*v1**2
+        x = self.state[0, 0]
+        y = self.state[0, 1]
+        u=m1*g*np.abs(y)
+        return u
 
 
 
@@ -142,7 +146,7 @@ rect = plt.Rectangle(box.bounds[::2],
                      ec='none', lw=2, fc='none')
 ax.add_patch(rect)
 time_text = ax.text(0.1, 0.875, '',color='red', transform=ax.transAxes)
-energy_text = ax.text(0.1, 0.850, '', transform=ax.transAxes)
+energy_text = ax.text(0.1, 0.840, 'green', transform=ax.transAxes)
 def init():
     """initialize animation"""
     global box, rect
