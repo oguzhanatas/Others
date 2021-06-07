@@ -8,6 +8,7 @@ license: BSD
 Please feel free to use and modify this, but keep the above information. Thanks!
 """
 import numpy as np
+from numpy.core.fromnumeric import size
 from scipy.spatial.distance import pdist, squareform
 
 import matplotlib.pyplot as plt
@@ -28,9 +29,9 @@ class ParticleBox:
                  init_state = [[1, 0, 0, -1],
                                [-0.5, 0.5, 0.5, 0.5],
                                [-0.5, -0.5, -0.5, 0.5]],
-                 bounds = [-1, 1, -1, 1],
-                 size = float(input('enter size of particles in m: ')),
-                 M = float(input('enter mass of particles in kg: ')),
+                 bounds = [0, 2, 0, 2],
+                 size = 0.03,
+                 M = 1,
                  G = 9.8):
         self.init_state = np.asarray(init_state, dtype=float)
         self.M = M * np.ones(self.init_state.shape[0])
@@ -39,16 +40,17 @@ class ParticleBox:
         self.time_elapsed = 0
         self.bounds = bounds
         self.G = G
-        print(self.state)
+        #print(self.state)
         
     def energy(self):
-        """step once by dt seconds"""
+        """compute the energy of the current state"""
         g=self.G
         m1=self.M
-        x = self.state[0, 0]
-        y = self.state[0, 1]
-        u=m1*g*np.abs(y)
-        return u
+        h = self.state[0, 1]
+        v=np.sqrt(self.state[0,2]**2+self.state[0,3]**2)
+        u=m1*g*h
+        k=0.5*m1*v**2
+        return u+k
 
 
 
@@ -122,10 +124,12 @@ class ParticleBox:
 #------------------------------------------------------------
 # set up initial state
 np.random.seed(0)
-init_state = -0.5 + np.random.random((int(input('enter number of particles: ')), 4))
+init_state = -0.5 + np.random.random((int(input('enter the number of particles: ')), 4))
 init_state[:, :2] *= 3.9
-
-box = ParticleBox(init_state, size=0.03)
+ss=float(input('enter the size of particles in m: '))
+mm=float(input('enter the mass of particles in kg: '))
+box = ParticleBox(init_state,size=ss,M=mm)
+#box=ParticleBox()
 dt = 1. / 30 # 30fps
 
 
@@ -134,10 +138,10 @@ dt = 1. / 30 # 30fps
 fig = plt.figure()
 fig.subplots_adjust(left=0, right=1, bottom=0.1, top=0.9)
 ax = fig.add_subplot(111, aspect='equal', autoscale_on=False,
-                     xlim=(-1.2, 1.2), ylim=(-1.2, 1.2))
+                     xlim=(-0.2, 2.2), ylim=(-0.2, 2.2))
 
 # particles holds the locations of the particles
-particles, = ax.plot([], [], 'o', ms=6)
+particles, = ax.plot([], [], 'o', ms=10)
 
 # rect is the box edge
 rect = plt.Rectangle(box.bounds[::2],
@@ -169,7 +173,7 @@ def animate(i):
     particles.set_data(box.state[:, 0], box.state[:, 1])
     particles.set_markersize(ms)
     time_text.set_text('time = %.1f' % box.time_elapsed)
-    energy_text.set_text('energy = %.3f J' % box.energy())
+    energy_text.set_text('E$_{tot}$ = %.3f J' % box.energy())
     return particles, rect, time_text, energy_text
 
 # choose the interval based on dt and the time to animate one step
