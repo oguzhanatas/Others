@@ -28,8 +28,8 @@ class ParticleBox:
                  init_state = [[1, 0, 0, -1],
                                [-0.5, 0.5, 0.5, 0.5],
                                [-0.5, -0.5, -0.5, 0.5]],
-                 bounds = [-2, 2, -2, 2],
-                 size = 0.04,
+                 bounds = [-1, 1, -1, 1],
+                 size = float(input('enter size of particles in m: ')),
                  M = float(input('enter mass of particles in kg: ')),
                  G = 9.8):
         self.init_state = np.asarray(init_state, dtype=float)
@@ -39,6 +39,14 @@ class ParticleBox:
         self.time_elapsed = 0
         self.bounds = bounds
         self.G = G
+        
+    def energy(self):
+        """step once by dt seconds"""
+        m1=self.M
+        v1=0.5
+        return 0.5*m1*v1**2
+
+
 
     def step(self, dt):
         """step once by dt seconds"""
@@ -84,6 +92,8 @@ class ParticleBox:
             self.state[i1, 2:] = v_cm + v_rel * m2 / (m1 + m2)
             self.state[i2, 2:] = v_cm - v_rel * m1 / (m1 + m2) 
 
+
+
         # check for crossing boundary
         crossed_x1 = (self.state[:, 0] < self.bounds[0] + self.size)
         crossed_x2 = (self.state[:, 0] > self.bounds[1] - self.size)
@@ -101,6 +111,8 @@ class ParticleBox:
 
         # add gravity
         self.state[:, 3] -= self.M * self.G * dt
+    
+        
 
 
 #------------------------------------------------------------
@@ -116,12 +128,12 @@ dt = 1. / 30 # 30fps
 #------------------------------------------------------------
 # set up figure and animation
 fig = plt.figure()
-fig.subplots_adjust(left=0, right=1, bottom=0, top=1)
+fig.subplots_adjust(left=0, right=1, bottom=0.1, top=0.9)
 ax = fig.add_subplot(111, aspect='equal', autoscale_on=False,
-                     xlim=(-3.2, 3.2), ylim=(-2.4, 2.4))
+                     xlim=(-1.2, 1.2), ylim=(-1.2, 1.2))
 
 # particles holds the locations of the particles
-particles, = ax.plot([], [], 'bo', ms=6)
+particles, = ax.plot([], [], 'o', ms=6)
 
 # rect is the box edge
 rect = plt.Rectangle(box.bounds[::2],
@@ -129,14 +141,16 @@ rect = plt.Rectangle(box.bounds[::2],
                      box.bounds[3] - box.bounds[2],
                      ec='none', lw=2, fc='none')
 ax.add_patch(rect)
-time_text = ax.text(0.02, 0.95, '', transform=ax.transAxes)
+time_text = ax.text(0.1, 0.875, '',color='red', transform=ax.transAxes)
+energy_text = ax.text(0.1, 0.850, '', transform=ax.transAxes)
 def init():
     """initialize animation"""
     global box, rect
     particles.set_data([], [])
     rect.set_edgecolor('none')
     time_text.set_text('')
-    return particles, rect, time_text
+    energy_text.set_text('')
+    return particles, rect, time_text, energy_text
 
 def animate(i):
     """perform animation step"""
@@ -151,7 +165,8 @@ def animate(i):
     particles.set_data(box.state[:, 0], box.state[:, 1])
     particles.set_markersize(ms)
     time_text.set_text('time = %.1f' % box.time_elapsed)
-    return particles, rect, time_text
+    energy_text.set_text('energy = %.3f J' % box.energy())
+    return particles, rect, time_text, energy_text
 
 # choose the interval based on dt and the time to animate one step
 
