@@ -30,7 +30,7 @@ class ParticleBox:
                                [-0.5, -0.5, -0.5, 0.5]],
                  bounds = [-2, 2, -2, 2],
                  size = 0.04,
-                 M = 0.05,
+                 M = float(input('enter mass of particles in kg: ')),
                  G = 9.8):
         self.init_state = np.asarray(init_state, dtype=float)
         self.M = M * np.ones(self.init_state.shape[0])
@@ -106,7 +106,7 @@ class ParticleBox:
 #------------------------------------------------------------
 # set up initial state
 np.random.seed(0)
-init_state = -0.5 + np.random.random((2, 4))
+init_state = -0.5 + np.random.random((int(input('enter number of particles: ')), 4))
 init_state[:, :2] *= 3.9
 
 box = ParticleBox(init_state, size=0.03)
