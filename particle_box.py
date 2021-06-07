@@ -44,13 +44,12 @@ class ParticleBox:
         
     def energy(self):
         """compute the energy of the current state"""
-        g=self.G
-        m1=self.M
-        h = self.state[0, 1]
-        v=np.sqrt(self.state[0,2]**2+self.state[0,3]**2)
-        u=m1*g*h
-        k=0.5*m1*v**2
-        return u+k
+        count,u,k=len(self.M),[],[]
+        for i in range(count):
+            u.append(self.M[i]*self.G*self.state[i,1])
+            k.append(0.5*self.M[i]*(self.state[0,2]**2+self.state[0,3]**2))
+        tot=sum(u)+sum(k)
+        return tot
 
 
 
@@ -150,7 +149,7 @@ rect = plt.Rectangle(box.bounds[::2],
                      ec='none', lw=2, fc='none')
 ax.add_patch(rect)
 time_text = ax.text(0.1, 0.875, '',color='red', transform=ax.transAxes)
-energy_text = ax.text(0.1, 0.840, 'green', transform=ax.transAxes)
+energy_text = ax.text(0.1, 0.825, 'green', transform=ax.transAxes)
 def init():
     """initialize animation"""
     global box, rect
