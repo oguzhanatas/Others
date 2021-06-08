@@ -6,6 +6,8 @@ email: vanderplas@astro.washington.edu
 website: http://jakevdp.github.com
 license: BSD
 Please feel free to use and modify this, but keep the above information. Thanks!
+
+modified by oguzhanatas
 """
 import numpy as np
 from numpy.core.fromnumeric import size
@@ -123,10 +125,10 @@ class ParticleBox:
 #------------------------------------------------------------
 # set up initial state
 np.random.seed(0)
-init_state = -0.5 + np.random.random((int(input('enter the number of particles: ')), 4))
+init_state = -0.5 + np.random.random((int(input('enter the number of particles (exp. 3): ')), 4))
 init_state[:, :2] *= 3.9
-ss=float(input('enter the size of particles in m: '))
-mm=float(input('enter the mass of particles in kg: '))
+ss=float(input('enter the size of particles in m (exp. 0.03): '))
+mm=float(input('enter the mass of particles in kg (exp. 1): '))
 box = ParticleBox(init_state,size=ss,M=mm)
 #box=ParticleBox()
 dt = 1. / 30 # 30fps
@@ -140,7 +142,8 @@ ax = fig.add_subplot(111, aspect='equal', autoscale_on=False,
                      xlim=(-0.2, 2.2), ylim=(-0.2, 2.2))
 
 # particles holds the locations of the particles
-particles, = ax.plot([], [], 'o', ms=10)
+particles, = ax.plot([], [], 'r.')
+
 
 # rect is the box edge
 rect = plt.Rectangle(box.bounds[::2],
@@ -187,6 +190,6 @@ ani = animation.FuncAnimation(fig, animate, frames=600,
 # your system: for more information, see
 # http://matplotlib.sourceforge.net/api/animation_api.html
 #ani.save('./fig_output/'+'particle_box.mp4', fps=30, extra_args=['-vcodec', 'libx264'])
-ani.save('./fig_output/'+'particle_box.gif', writer='PillowWriter', fps=30)
+#ani.save('./fig_output/'+'particle_box.gif', writer='PillowWriter', fps=30)
 
 plt.show()
