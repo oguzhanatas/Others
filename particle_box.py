@@ -143,6 +143,7 @@ ax = fig.add_subplot(111, aspect='equal', autoscale_on=False,
 
 # particles holds the locations of the particles
 particles, = ax.plot([], [], 'r.')
+#print(particles)
 
 
 # rect is the box edge
@@ -157,6 +158,8 @@ def init():
     """initialize animation"""
     global box, rect
     particles.set_data([], [])
+    particles.set_alpha(0.6)
+    particles.set_markeredgecolor('k')
     rect.set_edgecolor('none')
     time_text.set_text('')
     energy_text.set_text('')
