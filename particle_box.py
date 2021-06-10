@@ -194,6 +194,6 @@ ani = animation.FuncAnimation(fig, animate, frames=600,
 # your system: for more information, see
 # http://matplotlib.sourceforge.net/api/animation_api.html
 #ani.save('./fig_output/'+'particle_box.mp4', fps=30, extra_args=['-vcodec', 'libx264'])
-ani.save('./fig_output/'+'particle_box.gif', writer='PillowWriter', fps=30)
+#ani.save('./fig_output/'+'particle_box.gif', writer='PillowWriter', fps=30)
 
 plt.show()
