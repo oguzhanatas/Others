@@ -156,6 +156,7 @@ time_text = ax.text(0.1, 0.875, '',color='red', transform=ax.transAxes)
 energy_text = ax.text(0.1, 0.825, 'green', transform=ax.transAxes)
 def init():
     """initialize animation"""
+    """set particles properties"""
     global box, rect
     particles.set_data([], [])
     particles.set_alpha(0.6)
@@ -193,6 +194,6 @@ ani = animation.FuncAnimation(fig, animate, frames=600,
 # your system: for more information, see
 # http://matplotlib.sourceforge.net/api/animation_api.html
 #ani.save('./fig_output/'+'particle_box.mp4', fps=30, extra_args=['-vcodec', 'libx264'])
-#ani.save('./fig_output/'+'particle_box.gif', writer='PillowWriter', fps=30)
+ani.save('./fig_output/'+'particle_box.gif', writer='PillowWriter', fps=30)
 
 plt.show()
