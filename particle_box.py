@@ -28,9 +28,9 @@ class ParticleBox:
     bounds is the size of the box: [xmin, xmax, ymin, ymax]
     """
     def __init__(self,
-                 init_state = [[1, 0, 0, -1],
-                               [-0.5, 0.5, 0.5, 0.5],
-                               [-0.5, -0.5, -0.5, 0.5]],
+                 init_state = [[0.7, 1.5, 0, -1],
+                               [1.2, 1.5, 0.5, 0.5],
+                               [1.4, 1.9, -0.5, 0.5]],
                  bounds = [0, 2, 0, 2],
                  size = 0.03,
                  M = 1,
@@ -125,8 +125,8 @@ class ParticleBox:
 #------------------------------------------------------------
 # set up initial state
 np.random.seed(0)
-init_state = -0.5 + np.random.random((int(input('enter the number of particles (exp. 3): ')), 4))
-init_state[:, :2] *= 3.9
+init_state = 0.1 + np.random.random((int(input('enter the number of particles (exp. 3): ')), 4))
+init_state[:, :2] *= 3.1
 ss=float(input('enter the size of particles in m (exp. 0.03): '))
 mm=float(input('enter the mass of particles in kg (exp. 1): '))
 box = ParticleBox(init_state,size=ss,M=mm)
