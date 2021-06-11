@@ -12,6 +12,7 @@ modified by oguzhanatas
 import numpy as np
 from numpy.core.fromnumeric import size
 from scipy.spatial.distance import pdist, squareform
+from matplotlib import cm
 
 import matplotlib.pyplot as plt
 import scipy.integrate as integrate
@@ -161,6 +162,7 @@ def init():
     particles.set_data([], [])
     particles.set_alpha(0.6)
     particles.set_markeredgecolor('k')
+    #particles.set_color(cm.rainbow(box.energy()*0.01))
     rect.set_edgecolor('none')
     time_text.set_text('')
     energy_text.set_text('')
@@ -178,6 +180,7 @@ def animate(i):
     rect.set_edgecolor('k')
     particles.set_data(box.state[:, 0], box.state[:, 1])
     particles.set_markersize(ms)
+    particles.set_color(cm.prism(box.energy()*0.01))
     time_text.set_text('time = %.1f' % box.time_elapsed)
     energy_text.set_text('E$_{tot}$ = %.3f J' % box.energy())
     return particles, rect, time_text, energy_text
@@ -194,6 +197,6 @@ ani = animation.FuncAnimation(fig, animate, frames=600,
 # your system: for more information, see
 # http://matplotlib.sourceforge.net/api/animation_api.html
 #ani.save('./fig_output/'+'particle_box.mp4', fps=30, extra_args=['-vcodec', 'libx264'])
-#ani.save('./fig_output/'+'particle_box.gif', writer='PillowWriter', fps=30)
+ani.save('./fig_output/'+'particle_box.gif', writer='PillowWriter', fps=30)
 
 plt.show()
