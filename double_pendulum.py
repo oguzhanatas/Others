@@ -11,6 +11,8 @@ email: vanderplas@astro.washington.edu
 website: http://jakevdp.github.com
 license: BSD
 Please feel free to use and modify this, but keep the above information. Thanks!
+
+modified by oguzhanatas
 """
 
 from numpy import sin, cos
@@ -155,7 +157,7 @@ ani = animation.FuncAnimation(fig, animate, frames=300,
 # your system: for more information, see
 # http://matplotlib.sourceforge.net/api/animation_api.html
 #ani.save('./fig_output/'+'double_pendulum.mp4', fps=30, extra_args=['-vcodec', 'libx264'])
-ani.save('./fig_output/'+'double_pendulum.gif', writer='PillowWriter', fps=30)
+#ani.save('./fig_output/'+'double_pendulum.gif', writer='PillowWriter', fps=30)
 
 
 plt.show()
