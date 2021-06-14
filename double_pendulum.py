@@ -19,6 +19,7 @@ import matplotlib.pyplot as plt
 from numpy.lib.function_base import select
 import scipy.integrate as integrate
 import matplotlib.animation as animation
+from matplotlib import cm
 
 class DoublePendulum:
     """Double Pendulum Class
@@ -133,6 +134,7 @@ def animate(i):
     pendulum.step(dt)
     
     line.set_data(*pendulum.position())
+    line.set_color(cm.prism(pendulum.energy()*0.01))
     time_text.set_text('time = %.1f' % pendulum.time_elapsed)
     energy_text.set_text('energy = %.3f J' % pendulum.energy())
     return line, time_text, energy_text
@@ -153,5 +155,7 @@ ani = animation.FuncAnimation(fig, animate, frames=300,
 # your system: for more information, see
 # http://matplotlib.sourceforge.net/api/animation_api.html
 #ani.save('./fig_output/'+'double_pendulum.mp4', fps=30, extra_args=['-vcodec', 'libx264'])
+ani.save('./fig_output/'+'double_pendulum.gif', writer='PillowWriter', fps=30)
+
 
 plt.show()
