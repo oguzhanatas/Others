@@ -1,4 +1,7 @@
 """
+modified by oguzhanatas
+
+
 Animation of Elastic collisions with Gravity
 
 author: Jake Vanderplas
@@ -7,7 +10,7 @@ website: http://jakevdp.github.com
 license: BSD
 Please feel free to use and modify this, but keep the above information. Thanks!
 
-modified by oguzhanatas
+
 """
 import numpy as np
 from numpy.core.fromnumeric import size
