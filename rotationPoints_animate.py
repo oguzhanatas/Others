@@ -14,8 +14,8 @@ import matplotlib.pyplot as plt
 import matplotlib.animation
 
 r = 90  * (np.pi/180)
-t = 160#distance
-psize = 10#radius ratio
+t = 160#circle radius
+psize = 10#points multiplier
 
 fig = plt.figure()
 ax = fig.gca(projection = 'polar')
@@ -37,16 +37,16 @@ line3, = ax.plot([],[], 'ro', linewidth = 1, markersize=0.383*psize, zorder=0)#m
 
 def update(angle):
     #print(angle)
-    line1.set_data([angle, angle*1.],[0,150])#[0,t] where '0' is center point and 't' is distance from center
-    line2.set_data([angle, angle*1.62],[0,150*0.72])
-    line3.set_data([angle, angle*4.14],[0,150*0.45])
+    line1.set_data([angle, angle*0.6],[0,150])#[0,t] where '0' is center point and 't' is distance from center
+    line2.set_data([angle, angle*0.73],[0,150*0.72])
+    line3.set_data([angle, angle],[0,150*0.45])
     #line0.set_alpha(0.5)
     #line0.set_zorder('1')
     return line0, line1, line2, line3
 
-frames = np.linspace(0,2*np.pi,120)
+frames = np.linspace(0,20*np.pi,1200)
 
 #fig.canvas.draw()
-ani = matplotlib.animation.FuncAnimation(fig, update, frames=frames, blit=True, interval=10)
+ani = matplotlib.animation.FuncAnimation(fig, update, frames=frames, blit=True, interval=15)
 ani.save('./fig_output/'+'rotationPoints_animate.gif', writer='PillowWriter', fps=30)
 plt.show()
