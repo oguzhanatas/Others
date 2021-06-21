@@ -14,12 +14,11 @@ import matplotlib.pyplot as plt
 import matplotlib.animation
 
 r = 90  * (np.pi/180)
-t = 50
+t = 50#distance
 
 fig = plt.figure()
 ax = fig.gca(projection = 'polar')
 fig.canvas.set_window_title('Doppler')
-print(r,t)
 
 ax.set_theta_zero_location('N')
 ax.set_theta_direction(-1)
