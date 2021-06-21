@@ -37,6 +37,7 @@ line3, = ax.plot([],[], 'ro', linewidth = 1, markersize=0.383*psize, zorder=0)#m
 
 def update(angle):
     #print(angle)
+    #https://public.nrao.edu/ask/which-planet-orbits-our-sun-the-fastest/
     line1.set_data([angle, angle*0.6],[0,150])#[0,t] where '0' is center point and 't' is distance from center
     line2.set_data([angle, angle*0.73],[0,150*0.72])
     line3.set_data([angle, angle],[0,150*0.45])
