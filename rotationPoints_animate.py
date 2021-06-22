@@ -54,6 +54,14 @@ frames = np.linspace(0,15*np.pi,1000,endpoint=False)#'n*pi' where n is cycle cou
 
 #fig.canvas.draw()
 ani = matplotlib.animation.FuncAnimation(fig, update, frames=frames, blit=True, repeat=True, interval=15)
+
+# save the animation as an mp4.  This requires ffmpeg or mencoder to be
+# installed.
+# you can try this: conda update ffmpeg  
+# The extra_args ensure that the x264 codec is used, so that
+# the video can be embedded in html5.  You may need to adjust this for
+# your system: for more information, see
+# http://matplotlib.sourceforge.net/api/animation_api.html
 FFwriter=matplotlib.animation.FFMpegWriter(fps=60, extra_args=['-vcodec', 'libx264'])
 ani.save('./fig_output/'+'rotationPoints_animate.mp4', writer=FFwriter)
 #ani.save('./fig_output/'+'rotationPoints_animate.gif', writer='PillowWriter', fps=30)
