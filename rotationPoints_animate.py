@@ -50,9 +50,11 @@ def update(angle):
     #line0.set_zorder('1')
     return line0, line1, line2, line3, line4, #line5
 
-frames = np.linspace(0,10*np.pi,1000,endpoint=False)#'n*pi' where n is cycle count
+frames = np.linspace(0,15*np.pi,1000,endpoint=False)#'n*pi' where n is cycle count
 
 #fig.canvas.draw()
 ani = matplotlib.animation.FuncAnimation(fig, update, frames=frames, blit=True, repeat=True, interval=15)
-ani.save('./fig_output/'+'rotationPoints_animate.gif', writer='PillowWriter', fps=30)
+FFwriter=matplotlib.animation.FFMpegWriter(fps=30, extra_args=['-vcodec', 'libx264'])
+ani.save('./fig_output/'+'rotationPoints_animate.mp4', writer=FFwriter)
+#ani.save('./fig_output/'+'rotationPoints_animate.gif', writer='PillowWriter', fps=30)
 plt.show()
