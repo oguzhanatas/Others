@@ -32,7 +32,7 @@ def animate(i):
     x2 = np.linspace(-5, 5, 1000)
     y = np.sin(2 * np.pi * (x - 0.01 * i))
     y2 = np.sin(2 * np.pi * (x2 + 0.01 * i))
-    text.set_text('time = %.1f' % i)#where 'i' is frame count
+    text.set_text('frame = %.1f' % i)#where 'i' is frame count
     
 
     line.set_data(x, y)
@@ -44,11 +44,13 @@ anim = animation.FuncAnimation(fig, animate, init_func=init,
                                frames=300, interval=10, blit=True)
 
 # save the animation as an mp4.  This requires ffmpeg or mencoder to be
-# installed.  The extra_args ensure that the x264 codec is used, so that
+# installed.
+# you can try this: conda update ffmpeg  
+# The extra_args ensure that the x264 codec is used, so that
 # the video can be embedded in html5.  You may need to adjust this for
 # your system: for more information, see
 # http://matplotlib.sourceforge.net/api/animation_api.html
-#anim.save('basic_animation.mp4', fps=30, extra_args=['-vcodec', 'libx264'])
-#anim.save('./fig_output/'+'particle_box.gif', writer='PillowWriter', fps=30)
+anim.save('./fig_output/'+'wave_animate.mp4', fps=60, extra_args=['-vcodec', 'libx264'])
+#anim.save('./fig_output/'+'wave_animate.gif', writer='PillowWriter', fps=30)
 
 plt.show()
