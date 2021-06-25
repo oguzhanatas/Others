@@ -14,6 +14,7 @@ from matplotlib import animation
 # First set up the figure, the axis, and the plot element we want to animate
 fig = plt.figure()
 ax = plt.axes(xlim=(-5, 5), ylim=(-5, 5))
+text = ax.text(-4, 4, '',color='red')
 line, = ax.plot([], [], lw=2)
 line2, = ax.plot([], [], lw=2)
 
@@ -21,22 +22,26 @@ line2, = ax.plot([], [], lw=2)
 def init():
     line.set_data([], [])
     line2.set_data([], [])
-    return line, line2,
+    text.set_text('')
+    return text, line, line2,
 
 # animation function.  This is called sequentially
 def animate(i):
+    
     x = np.linspace(-5, 5, 1000)
     y2 = np.linspace(-5, 5, 1000)
     y = np.sin(2 * np.pi * (x - 0.01 * i))
     x2 = np.sin(2 * np.pi * (y2 - 0.01 * i))
+    text.set_text('time = %.1f' % i)#where 'i' is frame count
+    
 
     line.set_data(x, y)
     line2.set_data(x2, y2)
-    return line, line2,
+    return text, line, line2,
 
 # call the animator.  blit=True means only re-draw the parts that have changed.
 anim = animation.FuncAnimation(fig, animate, init_func=init,
-                               frames=200, interval=10, blit=True)
+                               frames=300, interval=10, blit=True)
 
 # save the animation as an mp4.  This requires ffmpeg or mencoder to be
 # installed.  The extra_args ensure that the x264 codec is used, so that
