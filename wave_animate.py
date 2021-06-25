@@ -29,9 +29,9 @@ def init():
 def animate(i):
     
     x = np.linspace(-5, 5, 1000)
-    y2 = np.linspace(-5, 5, 1000)
+    x2 = np.linspace(-5, 5, 1000)
     y = np.sin(2 * np.pi * (x - 0.01 * i))
-    x2 = np.sin(2 * np.pi * (y2 - 0.01 * i))
+    y2 = np.sin(2 * np.pi * (x2 + 0.01 * i))
     text.set_text('time = %.1f' % i)#where 'i' is frame count
     
 
