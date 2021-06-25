@@ -191,15 +191,17 @@ def animate(i):
 # choose the interval based on dt and the time to animate one step
 
 ani = animation.FuncAnimation(fig, animate, frames=600,
-                              interval=10, blit=True, init_func=init)
+                              interval=15, blit=True, init_func=init)
 
 
 # save the animation as an mp4.  This requires ffmpeg or mencoder to be
-# installed.  The extra_args ensure that the x264 codec is used, so that
+# installed.
+# you can try this: conda update ffmpeg  
+# The extra_args ensure that the x264 codec is used, so that
 # the video can be embedded in html5.  You may need to adjust this for
 # your system: for more information, see
 # http://matplotlib.sourceforge.net/api/animation_api.html
-#ani.save('./fig_output/'+'particle_box.mp4', fps=30, extra_args=['-vcodec', 'libx264'])
-ani.save('./fig_output/'+'particle_box.gif', writer='PillowWriter', fps=30)
+ani.save('./fig_output/'+'particle_box.mp4', fps=60, extra_args=['-vcodec', 'libx264'])
+#ani.save('./fig_output/'+'particle_box.gif', writer='PillowWriter', fps=30)
 
 plt.show()
